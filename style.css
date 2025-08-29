@@ -1,0 +1,912 @@
+/* ===============================================
+   CSS RESET AND ROOT VARIABLES
+   =============================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Variables */
+    --primary-color: #8B4513;
+    --secondary-color: #CD853F;
+    --accent-color: #FFD700;
+    --text-dark: #333;
+    --text-light: #666;
+    --bg-light: #FAF0E6;
+    --white: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --success-color: #4CAF50;
+    --error-color: #f44336;
+    
+    /* Responsive Units */
+    --container-padding: clamp(1rem, 4vw, 2rem);
+    --section-spacing: clamp(3rem, 8vw, 6rem);
+    --card-spacing: clamp(1rem, 3vw, 2rem);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--white);
+}
+
+/* ===============================================
+   MAIN PAGE CONTAINER - CSS GRID LAYOUT
+   =============================================== */
+
+.page-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: 
+        "header"
+        "hero"
+        "main"
+        "footer";
+    min-height: 100vh;
+}
+
+/* Desktop Grid Layout with Sidebar */
+@media (min-width: 1024px) {
+    .page-container {
+        grid-template-columns: 1fr 300px;
+        grid-template-areas: 
+            "header header"
+            "hero hero"
+            "main sidebar"
+            "about about"
+            "footer footer";
+    }
+}
+
+/* ===============================================
+   HEADER - FLEXBOX NAVIGATION
+   =============================================== */
+
+.header {
+    grid-area: header;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.logo {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: bold;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation - Flexbox Layout */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: clamp(1rem, 3vw, 2rem);
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.nav-link:hover {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 10px var(--shadow);
+    }
+    
+    .nav-list.active {
+        display: flex;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+
+/* ===============================================
+   HERO SECTION - FLEXBOX CENTERING
+   =============================================== */
+
+.hero {
+    grid-area: hero;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #D2691E 100%);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+}
+
+.hero-title {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.greeting-message {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+/* Hero Buttons - Flexbox Layout */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-primary, .btn-secondary {
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+    border: none;
+    border-radius: 30px;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================================
+   MAIN CONTENT - CSS GRID LAYOUT
+   =============================================== */
+
+.main-content {
+    grid-area: main;
+    padding: var(--section-spacing) var(--container-padding);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.service-counter {
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-top: 0.5rem;
+}
+
+/* ===============================================
+   SERVICES SECTION - CSS GRID
+   =============================================== */
+
+.services {
+    margin-bottom: var(--section-spacing);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--card-spacing);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background-color: var(--white);
+    padding: var(--card-spacing);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow);
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.service-card.featured {
+    border: 3px solid var(--accent-color);
+    background: linear-gradient(45deg, var(--bg-light), var(--white));
+}
+
+.service-icon {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+.service-title {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.service-description {
+    color: var(--text-light);
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+.service-price {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: bold;
+    color: var(--secondary-color);
+    background-color: var(--bg-light);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-top: auto;
+}
+
+/* ===============================================
+   GALLERY SECTION - FLEXBOX LAYOUT
+   =============================================== */
+
+.gallery {
+    margin-bottom: var(--section-spacing);
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.gallery-item {
+    flex: 1 1 250px;
+    max-width: 300px;
+    aspect-ratio: 1;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.gallery-item.active {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--bg-light), var(--secondary-color));
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gallery-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.gallery-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.gallery-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.gallery-info {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* ===============================================
+   CALCULATOR SECTION
+   =============================================== */
+
+.calculator {
+    background-color: var(--bg-light);
+    padding: var(--card-spacing);
+    border-radius: 15px;
+    margin-bottom: var(--section-spacing);
+}
+
+.calculator-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.price-result {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--success-color);
+    color: var(--white);
+    border-radius: 10px;
+    animation: slideIn 0.3s ease-in;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================================
+   SIDEBAR - FLEXBOX LAYOUT
+   =============================================== */
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: var(--bg-light);
+    padding: var(--card-spacing);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-section {
+    background-color: var(--white);
+    padding: var(--card-spacing);
+    border-radius: 10px;
+    box-shadow: 0 3px 15px var(--shadow);
+}
+
+.sidebar-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+}
+
+/* Booking Form - Flexbox */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.booking-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.booking-message.success {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.booking-message.error {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
+/* Tips List */
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tip-item {
+    padding: 1rem;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.tip-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.tip-btn {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.tip-btn:hover {
+    background-color: var(--primary-color);
+}
+
+/* Contact Details - Flexbox */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.contact-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.business-hours {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: var(--bg-light);
+    border-radius: 5px;
+    text-align: center;
+}
+
+#businessStatus {
+    font-weight: bold;
+}
+
+#businessStatus.open {
+    color: var(--success-color);
+}
+
+#businessStatus.closed {
+    color: var(--error-color);
+}
+
+/* Mobile Sidebar */
+@media (max-width: 1023px) {
+    .sidebar {
+        grid-area: main;
+        order: 2;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 1rem;
+    }
+    
+    .sidebar-section {
+        flex: 0 0 280px;
+    }
+}
+
+/* ===============================================
+   ABOUT SECTION - FLEXBOX LAYOUT
+   =============================================== */
+
+.about {
+    grid-area: about;
+    background-color: var(--bg-light);
+    padding: var(--section-spacing) var(--container-padding);
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+/* Stats - Flexbox Layout */
+.stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    color: var(--text-light);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.about-image {
+    flex: 1;
+    min-height: 300px;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    font-weight: bold;
+}
+
+/* Mobile About Layout */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .stats {
+        justify-content: center;
+    }
+}
+
+/* ===============================================
+   FOOTER - FLEXBOX LAYOUT
+   =============================================== */
+
+.footer {
+    grid-area: footer;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: var(--section-spacing) var(--container-padding) 1rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.footer-section {
+    flex: 1;
+}
+
+.footer-title {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Social Links - Flexbox */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50%;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--secondary-color);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.visitor-count {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Mobile Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* ===============================================
+   RESPONSIVE BREAKPOINTS
+   =============================================== */
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-grid {
+        justify-content: space-around;
+    }
+    
+    .gallery-item {
+        flex: 1 1 calc(50% - 0.5rem);
+        max-width: none;
+    }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1400px) {
+    .page-container {
+        grid-template-columns: 1fr 350px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===============================================
+   UTILITY CLASSES FOR RESPONSIVE DESIGN
+   =============================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Animation classes for JavaScript interactions */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Loading animation */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
